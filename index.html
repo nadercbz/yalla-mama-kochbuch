@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Yalla Mama Kochbuch</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=Caveat:wght@600;700&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: Ein Riad aus Papier. Tadelakt Wände, Hufeisenbögen als Bilderrahmen, Maschrabiya Licht, Zellige Bänder als Seitentrenner, Etiketten im Stil alter Casablanca Labels. */
+:root{
+  --tadelakt:#E7B3A0;   /* Rosa Putz der Riads */
+  --clay:#B9583C;       /* Terrakotta */
+  --oxblood:#7C1E1A;    /* Ochsenblut, Hauptakzent */
+  --zellige:#1D6A48;    /* Zellige Grün */
+  --ochre:#D58A2B;      /* Wüste, Safran */
+  --sand:#F3E4CF;       /* Grund */
+  --sand-2:#EAD3B6;
+  --paper:#FBF4EA;      /* Karten */
+  --ink:#2B1813;
+  --muted:#7D5E50;
+  --rule:rgba(124,30,26,.22);
+  --on-dark:#FBF1E4;
+  --f-display:"Gloock", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-hand:"Caveat", "Bradley Hand", cursive;
+  --f-ar:"Amiri", "Geeza Pro", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --tadelakt:#4A2620; --clay:#D47A5C; --oxblood:#E7907A; --zellige:#4FB384; --ochre:#E8A64A;
+    --sand:#1C1310; --sand-2:#261A15; --paper:#2A1D18; --ink:#F6E7D6; --muted:#C2A795;
+    --rule:rgba(231,144,122,.25); --on-dark:#FBF1E4; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --tadelakt:#4A2620; --clay:#D47A5C; --oxblood:#E7907A; --zellige:#4FB384; --ochre:#E8A64A;
+  --sand:#1C1310; --sand-2:#261A15; --paper:#2A1D18; --ink:#F6E7D6; --muted:#C2A795;
+  --rule:rgba(231,144,122,.25); --on-dark:#FBF1E4; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--sand);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65;overflow-x:hidden}
+.gut{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1160px;margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.02;text-wrap:balance;margin:0;letter-spacing:-.01em}
+img,video{display:block;max-width:100%}
+.label{font:600 12px/1.2 var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--clay)}
+
+/* Bogenformen als Masken */
+.horseshoe{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 125' preserveAspectRatio='none'%3E%3Cpath d='M7 125V60C-3 38 12 3 50 3s53 35 43 57v65z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 125' preserveAspectRatio='none'%3E%3Cpath d='M7 125V60C-3 38 12 3 50 3s53 35 43 57v65z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.lobed{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 125' preserveAspectRatio='none'%3E%3Cpath d='M0 125V40c0-4 6-6 7-10 1-6 6-9 11-10 2-6 9-10 15-9 4-6 11-9 17-9s13 3 17 9c6-1 13 3 15 9 5 1 10 4 11 10 1 4 7 6 7 10v85z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 125' preserveAspectRatio='none'%3E%3Cpath d='M0 125V40c0-4 6-6 7-10 1-6 6-9 11-10 2-6 9-10 15-9 4-6 11-9 17-9s13 3 17 9c6-1 13 3 15 9 5 1 10 4 11 10 1 4 7 6 7 10v85z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+/* Rahmen: zweite Bogenform dahinter wirkt wie geschnitzter Stuck */
+.frame{position:relative;isolation:isolate}
+.frame::before{content:"";position:absolute;inset:-12px -12px 0 -12px;background:var(--tadelakt);z-index:-1}
+.frame.horse::before{-webkit-mask:inherit;mask:inherit}
+
+/* Maschrabiya Gitter als Muster */
+.mashrabiya{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%237C1E1A' stroke-width='1.2' opacity='.5'%3E%3Cpath d='M28 4l7 10h12l-5 12 5 12H35l-7 10-7-10H9l5-12-5-12h12z'/%3E%3Ccircle cx='28' cy='26' r='6'/%3E%3Cpath d='M0 0l9 14M56 0l-9 14M0 56l9-18M56 56l-9-18'/%3E%3C/g%3E%3C/svg%3E")}
+/* Zellige Band */
+.zband{height:30px;margin-block:0;border-block:1px solid var(--rule);
+  background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' fill='%231D6A48'/%3E%3Cpath d='M15 3l3.5 8.5L27 15l-8.5 3.5L15 27l-3.5-8.5L3 15l8.5-3.5z' fill='%23F3E4CF'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%237C1E1A'/%3E%3Cpath d='M0 0h4L0 4zM30 0v4l-4-4zM0 30v-4l4 4zM30 30h-4l4-4z' fill='%23D58A2B'/%3E%3C/svg%3E") repeat-x center/30px 30px}
+
+/* ---------- Cover ---------- */
+.hero{position:relative;background:var(--tadelakt);overflow:hidden}
+.hero .mashrabiya{position:absolute;inset:0;opacity:.35;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 70% at 78% 40%, rgba(255,236,210,.55), transparent 70%)}
+.cover{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:end;padding-block:clamp(36px,6vw,80px) 0}
+.cover-copy{min-width:0;padding-bottom:clamp(28px,5vw,72px)}
+.stamp{display:inline-grid;place-items:center;width:112px;height:112px;border-radius:50%;border:1.5px solid var(--oxblood);color:var(--oxblood);
+  text-align:center;position:relative;transform:rotate(-8deg)}
+.stamp::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px dashed var(--oxblood);opacity:.7}
+.stamp>div{display:flex;flex-direction:column;align-items:center;gap:3px}
+.stamp b{font:400 26px/1 var(--f-display);white-space:nowrap}
+.stamp small{font:600 9px/1.2 var(--f-body);letter-spacing:.18em;text-transform:uppercase}
+.stamp span{font:700 15px/1 var(--f-ar)}
+.title{font-size:clamp(68px,12.5vw,160px);color:var(--oxblood);margin-top:22px}
+.title em{font-style:normal;color:var(--zellige)}
+.ar-cover{font-family:var(--f-ar);font-size:clamp(28px,3.6vw,40px);color:var(--clay);direction:rtl;text-align:left;margin-top:6px}
+.subtitle{font-family:var(--f-display);font-size:clamp(22px,2.6vw,30px);margin-top:18px;color:var(--ink);max-width:22ch}
+.lead{max-width:50ch;color:var(--muted);margin-top:12px}
+.cover-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{font:600 15px/1 var(--f-body);letter-spacing:.04em;border:1.5px solid var(--oxblood);border-radius:999px;padding:14px 24px;cursor:pointer;
+  background:var(--oxblood);color:var(--on-dark);text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.btn.alt{background:transparent;color:var(--oxblood)}
+.btn:hover{transform:translateY(-2px)}
+.btn.alt:hover{background:var(--oxblood);color:var(--on-dark)}
+:focus-visible{outline:2px solid var(--ochre);outline-offset:3px}
+.cover-art{position:relative;min-width:0;align-self:end}
+.cover-arch{aspect-ratio:4/5;background:var(--clay)}
+.cover-arch video,.cover-arch img{width:100%;height:100%;object-fit:cover}
+.cover-art{isolation:isolate}
+.cover-art .ring{position:absolute;inset:-16px -16px 0;background:var(--oxblood);opacity:.22;z-index:-1;pointer-events:none}
+.badge{position:absolute;left:-22px;bottom:28px;width:clamp(92px,12vw,128px);aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:5px solid var(--paper);box-shadow:0 10px 30px rgba(43,24,19,.25)}
+.badge img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Suche ---------- */
+.searchbar{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;padding-block:10px;
+  background:color-mix(in srgb, var(--sand) 90%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.search{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:5px 6px 5px 18px}
+.search svg{flex:none;width:20px;height:20px;color:var(--oxblood)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 16px var(--f-body);padding:10px 4px;outline:none}
+.search input::placeholder{color:var(--muted)}
+.kbd{flex:none;font:600 12px var(--f-body);color:var(--muted);border:1px solid var(--rule);border-radius:6px;padding:2px 8px}
+.clear{flex:none;border:0;background:var(--oxblood);color:var(--on-dark);width:34px;height:34px;border-radius:50%;font:600 18px/1 var(--f-body);cursor:pointer}
+.results{margin-top:8px;background:var(--paper);border:1px solid var(--rule);border-radius:20px;box-shadow:0 20px 50px rgba(43,24,19,.18);
+  max-height:min(60vh,460px);overflow:auto;padding:8px}
+.res{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;padding:8px;border-radius:14px;text-decoration:none;color:var(--ink)}
+.res:hover,.res.active{background:color-mix(in srgb, var(--tadelakt) 45%, transparent)}
+.res img{width:52px;height:64px;object-fit:cover;border-radius:26px 26px 6px 6px}
+.res b{font-family:var(--f-display);font-weight:400;font-size:20px;display:block;line-height:1.1}
+.res small{color:var(--muted);font-size:14px;display:block;min-width:0}
+.res mark{background:color-mix(in srgb, var(--ochre) 45%, transparent);color:inherit;border-radius:3px;padding:0 2px}
+.res .pg{font:600 11px var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--clay)}
+.empty{padding:16px;color:var(--muted)}
+
+/* ---------- Inhalt ---------- */
+.toc{padding-block:clamp(56px,8vw,96px) clamp(40px,6vw,72px)}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.sec-head h2{font-size:clamp(44px,6vw,72px);color:var(--oxblood)}
+.sec-head p{color:var(--muted);margin:0;max-width:38ch}
+.toc-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px 20px}
+.toc-card{text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:10px}
+.toc-card .ph{aspect-ratio:4/5;background:var(--tadelakt);overflow:hidden}
+.toc-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.toc-card:hover .ph img{transform:scale(1.06)}
+.toc-card .n{font:600 11px var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--clay)}
+.toc-card .t{font-family:var(--f-display);font-size:21px;line-height:1.08}
+.toc-card .a{font-family:var(--f-ar);color:var(--muted);font-size:17px;direction:rtl;text-align:left;line-height:1.2}
+
+/* ---------- Rezeptseite ---------- */
+.recipe{position:relative;padding-block:clamp(64px,9vw,120px)}
+.recipe:nth-of-type(even){background:color-mix(in srgb, var(--tadelakt) 35%, var(--sand))}
+.recipe.dim{opacity:.3;filter:grayscale(.7)}
+.page-top{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,6vw,80px);align-items:center}
+.recipe:nth-of-type(even) .page-top{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.recipe:nth-of-type(even) .photo{order:2}
+.photo{position:relative;min-width:0}
+.photo .arch{aspect-ratio:4/5;background:var(--tadelakt);overflow:hidden}
+.photo .arch img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.photo:hover .arch img{transform:scale(1.04)}
+.photo{isolation:isolate}
+.photo .ring{position:absolute;inset:-16px -16px -16px;background:var(--tadelakt);z-index:-1;pointer-events:none}
+.recipe:nth-of-type(even) .photo .ring{background:var(--oxblood);opacity:.2}
+.photo .stamp{position:absolute;right:-18px;top:14%;background:var(--sand);width:96px;height:96px}
+.recipe:nth-of-type(even) .photo .stamp{right:auto;left:-18px;transform:rotate(8deg)}
+.recipe:nth-of-type(even) .photo .stamp{background:color-mix(in srgb, var(--tadelakt) 35%, var(--sand))}
+.head{min-width:0}
+.ar{font-family:var(--f-ar);font-weight:700;font-size:clamp(30px,4vw,44px);color:var(--zellige);direction:rtl;text-align:left;line-height:1.3}
+.head h2{font-size:clamp(46px,6.6vw,84px);color:var(--oxblood);margin-top:6px}
+.aka{font:600 13px var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-top:14px}
+.desc{margin-top:16px;font-size:19px;max-width:46ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:28px;border-block:1px solid var(--rule)}
+.fact{padding:14px 12px;min-width:0}
+.fact + .fact{border-left:1px solid var(--rule)}
+.fact small{display:block;font:600 11px var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.fact b{font-family:var(--f-display);font-weight:400;font-size:24px;line-height:1.2}
+.level{display:inline-flex;gap:5px;margin-left:8px;vertical-align:middle}
+.level i{width:9px;height:9px;transform:rotate(45deg);border:1.5px solid var(--oxblood)}
+.level i.on{background:var(--oxblood)}
+
+.page-body{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,4vw,56px);margin-top:clamp(48px,6vw,80px);align-items:start}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:28px 28px 8px 8px;padding:clamp(20px,2.8vw,34px);min-width:0}
+.panel h3{font-size:34px;color:var(--oxblood);display:flex;align-items:baseline;gap:12px}
+.panel h3 small{font:600 11px var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.zutaten-art{margin:18px 0 18px;aspect-ratio:1;overflow:hidden;background:var(--sand-2)}
+.zutaten-art img{width:100%;height:100%;object-fit:cover}
+.portions{display:flex;align-items:center;justify-content:space-between;gap:12px;border-block:1px solid var(--rule);padding:10px 0;margin-bottom:6px}
+.portions span{font:600 12px var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.portions .ctl{display:flex;align-items:center;gap:10px}
+.portions button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--oxblood);background:transparent;color:var(--oxblood);font:600 18px/1 var(--f-body);cursor:pointer}
+.portions button:hover{background:var(--oxblood);color:var(--on-dark)}
+.portions output{min-width:2.4ch;text-align:center;font-family:var(--f-display);font-size:26px;font-variant-numeric:tabular-nums}
+.ing{list-style:none;padding:0;margin:0}
+.ing li{border-bottom:1px dotted var(--rule)}
+.ing label{display:grid;grid-template-columns:24px 6.8em 1fr;gap:10px;align-items:baseline;padding:9px 0;cursor:pointer}
+.ing input{appearance:none;width:18px;height:18px;border:1.5px solid var(--oxblood);margin:0;align-self:center;background:transparent;cursor:pointer;transform:rotate(45deg);display:grid;place-content:center}
+.ing input:checked{background:var(--zellige);border-color:var(--zellige)}
+.ing .q{font-weight:700;color:var(--clay);font-variant-numeric:tabular-nums}
+.ing li.done .n{text-decoration:line-through;color:var(--muted)}
+.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:22px}
+.steps li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start}
+.num{display:flex;flex-direction:column;align-items:center;line-height:1}
+.num b{font:400 34px/1 var(--f-display);color:var(--oxblood)}
+.num span{font:700 16px/1 var(--f-ar);color:var(--zellige);margin-top:4px}
+.steps p{margin:4px 0 0;max-width:62ch}
+.tip{margin-top:30px;display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center;padding:18px 20px;border-radius:999px 24px 24px 999px;
+  background:var(--zellige);color:var(--on-dark)}
+.tip img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid var(--on-dark)}
+.tip b{font:600 11px var(--f-body);letter-spacing:.2em;text-transform:uppercase;opacity:.8;display:block}
+.tip p{font-family:var(--f-hand);font-size:26px;line-height:1.15;margin:2px 0 0}
+
+/* ---------- Ende ---------- */
+.outro{position:relative;background:var(--oxblood);color:var(--on-dark);text-align:center;overflow:hidden;padding-block:clamp(64px,9vw,110px)}
+.outro .mashrabiya{position:absolute;inset:0;opacity:.18;filter:brightness(4);pointer-events:none}
+.outro .in{position:relative}
+.outro .badge-lg{width:132px;aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0 auto 22px;border:5px solid var(--on-dark)}
+.outro .badge-lg img{width:100%;height:100%;object-fit:cover}
+.outro h2{font-size:clamp(52px,8vw,96px)}
+.outro .ar{color:var(--on-dark);opacity:.8;text-align:center}
+.outro p{opacity:.85;max-width:44ch;margin:14px auto 0}
+.top-btn{position:fixed;right:max(16px, calc(env(safe-area-inset-right, 0px) + 16px));bottom:calc(env(safe-area-inset-bottom, 0px) + 18px);z-index:40;
+  width:48px;height:48px;border-radius:50%;border:0;background:var(--oxblood);color:var(--on-dark);font:600 20px/1 var(--f-body);cursor:pointer;box-shadow:0 8px 24px rgba(43,24,19,.3)}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){ .toc-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width: 820px){
+  .cover{grid-template-columns:1fr;align-items:start}
+  .cover-copy{padding-bottom:0}
+  .cover-art{max-width:420px;width:100%;margin-inline:auto}
+  .page-top,.recipe:nth-of-type(even) .page-top{grid-template-columns:1fr}
+  .recipe:nth-of-type(even) .photo{order:0}
+  .photo{max-width:460px;width:100%;margin-inline:auto}
+  .page-body{grid-template-columns:1fr}
+}
+@media (max-width: 520px){
+  body{font-size:16px}
+  .toc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px}
+  .stamp{width:88px;height:88px}.stamp b{font-size:20px}
+  .photo .stamp{right:-6px;width:80px;height:80px}.recipe:nth-of-type(even) .photo .stamp{left:-6px}
+  .badge{left:-6px}
+  .facts{grid-template-columns:1fr 1fr}.fact:nth-child(3){grid-column:1/-1;border-left:0;border-top:1px solid var(--rule)}
+  .ing label{grid-template-columns:22px 6em 1fr}
+  .kbd{display:none}
+  .tip{grid-template-columns:52px 1fr;border-radius:28px}
+  .tip img{width:52px;height:52px}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ilens" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="hero gut" id="top">
+  <div class="mashrabiya"></div>
+  <div class="wrap cover">
+    <div class="cover-copy">
+      <div class="stamp" aria-hidden="true"><div><small>Recettes</small><b>N° 10</b><span>ماما</span></div></div>
+      <h1 class="title">Yalla <em>Mama</em></h1>
+      <div class="ar-cover" lang="ar">مطبخ ماما المغربي</div>
+      <p class="subtitle">Die zehn Klassiker aus Mamas marokkanischer Küche</p>
+      <p class="lead">Vom Freitagscouscous bis zur Chebakia im Ramadan. Jedes Rezept so, wie Mama es kocht: mit Safran, eingelegter Zitrone, viel Geduld und ganz viel Liebe.</p>
+      <div class="cover-actions">
+        <a class="btn" href="#inhalt">Zum Inhalt</a>
+        <button class="btn alt" type="button" id="focusSearch">Rezept suchen</button>
+      </div>
+    </div>
+    <div class="cover-art">
+      <div class="ring horseshoe" aria-hidden="true"></div>
+      <div class="cover-arch horseshoe">
+        <video id="heroVideo" src="img/mama.mp4" poster="img/cover.jpg" autoplay muted loop playsinline aria-label="Mama hebt den Deckel der Tajine und winkt"></video>
+      </div>
+      <div class="badge"><img src="img/profil.webp" alt="Yalla Mama Profilbild"></div>
+    </div>
+  </div>
+</header>
+
+<div class="searchbar gut" id="searchbar">
+  <div class="wrap">
+    <div class="search" role="search">
+      <svg aria-hidden="true"><use href="#ilens"/></svg>
+      <input id="q" type="search" autocomplete="off" placeholder="Gericht oder Zutat suchen, z. B. Safran, Lamm, Msemen" aria-label="Rezepte durchsuchen" aria-controls="results">
+      <span class="kbd" aria-hidden="true">/</span>
+      <button class="clear" id="clear" type="button" aria-label="Suche leeren" hidden>×</button>
+    </div>
+    <div class="results" id="results" hidden></div>
+  </div>
+</div>
+
+<main>
+  <section class="toc gut" id="inhalt">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Inhalt</h2>
+        <p>Zehn Seiten, zehn Gerichte. Tippe auf einen Bogen und das Buch blättert hin.</p>
+      </div>
+      <div class="toc-grid" id="tocGrid"></div>
+    </div>
+  </section>
+  <div id="pages"></div>
+  <section class="outro gut">
+    <div class="mashrabiya"></div>
+    <div class="in">
+      <div class="badge-lg"><img src="img/profil.webp" alt="Yalla Mama"></div>
+      <div class="ar" lang="ar">بالصحة</div>
+      <h2>Bsaha!</h2>
+      <p>Guten Appetit, wie man in Marokko sagt. Koch eins der Rezepte nach und zeig Mama dein Ergebnis.</p>
+    </div>
+  </section>
+</main>
+<button class="top-btn" id="toTop" type="button" aria-label="Nach oben">↑</button>
+
+<script>
+const R = [
+ {id:"djej-mhamar", name:"Djej Mhamar", ar:"دجاج محمر", aka:"Auch Jesh Mhamar genannt. Geröstetes Hähnchen mit Pommes", tags:"Hähnchen Huhn Zitrone Oliven Pommes Jesh Mahamar Djaj",
+  desc:"Das Festtagshähnchen. Erst in Safran und Zitrone geschmort, dann im Ofen goldbraun geröstet und mit knusprigen Pommes serviert.",
+  time:"1 h 45 min", base:4, unit:"Portionen", level:2,
+  ing:[[1,"","ganzes Hähnchen, ca. 1,6 kg"],[1,"","eingelegte Zitrone"],[150,"g","grüne und violette Oliven"],[2,"","Zwiebeln"],[4,"","Knoblauchzehen"],[1,"Bund","Petersilie und Koriander gemischt"],[1,"Prise","Safran"],[1,"TL","Kurkuma"],[1,"TL","Ingwer, gemahlen"],[1,"TL","Paprika edelsüß"],[1,"TL","Salz"],[.5,"TL","Pfeffer"],[4,"EL","Olivenöl"],[40,"g","Butter"],[800,"g","Kartoffeln für die Pommes"],[null,"","Öl zum Frittieren"]],
+  steps:["Kräuter fein hacken und mit zerdrücktem Knoblauch, allen Gewürzen, Olivenöl und dem Fruchtfleisch der Zitrone verrühren. Das Hähnchen innen und außen einreiben und mindestens 1 Stunde marinieren.","Zwiebeln reiben und mit dem Hähnchen, der restlichen Marinade und 250 ml Wasser in einen großen Topf geben. Zugedeckt 45 Minuten schmoren, dabei einmal wenden.","Das Hähnchen herausnehmen, mit Butter bestreichen und bei 200 °C im Ofen 20 bis 25 Minuten goldbraun rösten.","Die Sauce im Topf sämig einkochen. Oliven und die Zitronenschale in Streifen 5 Minuten mitziehen lassen.","Kartoffeln in Stäbchen schneiden, goldgelb frittieren und salzen.","Hähnchen auf eine große Platte setzen, Sauce, Oliven und Zitrone darüber geben und die Pommes rundherum legen."],
+  tip:"Mariniere das Hähnchen über Nacht. Dann zieht die Zitrone bis an den Knochen."},
+ {id:"couscous", name:"Couscous mit sieben Gemüsen", ar:"كسكس بسبع خضاري", aka:"Couscous Bidaoui, das Freitagsessen", tags:"Couscous Lamm Gemüse Kichererbsen Karotten Kürbis Freitag",
+  desc:"Der Berg aus fluffigem Grieß, dreimal gedämpft, gekrönt von Lamm und sieben Gemüsen. In Marokko kommt er jeden Freitag auf den Tisch.",
+  time:"2 h", base:6, unit:"Portionen", level:2,
+  ing:[[500,"g","Couscous, mittelfein"],[600,"g","Lammschulter in Stücken"],[2,"","Zwiebeln"],[3,"","Tomaten"],[3,"","Karotten"],[2,"","Zucchini"],[300,"g","Kürbis"],[.25,"","Weißkohl"],[2,"","weiße Rüben"],[200,"g","Kichererbsen, gegart"],[1,"Bund","Koriander und Petersilie"],[1,"TL","Ras el Hanout"],[1,"TL","Kurkuma"],[1,"TL","Ingwer"],[1,"Prise","Safran"],[2,"TL","Salz"],[4,"EL","Olivenöl"],[40,"g","Butter"]],
+  steps:["Fleisch, gehackte Zwiebeln, geriebene Tomaten, Gewürze und Öl im unteren Topf der Couscoussière 10 Minuten anbraten. 2 Liter Wasser und das gebundene Kräuterbündel dazu, 40 Minuten köcheln.","Couscous in einer großen Schüssel mit einem Glas Salzwasser und 2 EL Öl zwischen den Händen einreiben und quellen lassen.","Karotten, Rüben, Kohl und Kichererbsen in die Brühe geben. Couscous in den Aufsatz füllen und 20 Minuten über der Brühe dämpfen.","Couscous zurück in die Schüssel, mit den Händen lockern, mit etwas Wasser benetzen und ein zweites Mal dämpfen. Zucchini und Kürbis jetzt in die Brühe geben.","Nach dem dritten Dämpfen 15 Minuten die Butter in den Couscous einarbeiten.","Couscous als Berg anrichten, das Fleisch in die Mitte setzen, das Gemüse wie Strahlen anordnen und die Brühe extra reichen."],
+  tip:"Couscous nie mit dem Löffel drücken. Immer mit den Händen lockern, dann wird er leicht wie Wolken."},
+ {id:"msemen", name:"Msemen", ar:"مسمن", aka:"Auch Rghaif genannt. Blätterfladen aus der Pfanne", tags:"Msemen Msemmen Rghaif Fladen Brot Frühstück Honig Butter Grieß",
+  desc:"Hauchdünn gezogener Teig, mit Butter und Grieß gefaltet, in der Pfanne knusprig gebraten. Zum Frühstück mit Honig und Minztee.",
+  time:"1 h", base:10, unit:"Stück", level:2,
+  ing:[[500,"g","Weizenmehl"],[150,"g","feiner Hartweizengrieß"],[1,"TL","Salz"],[1,"TL","Zucker"],[.5,"TL","Trockenhefe"],[330,"ml","lauwarmes Wasser"],[100,"ml","Öl"],[80,"g","weiche Butter"],[50,"g","Grieß zum Bestreuen"],[null,"","Honig und Butter zum Servieren"]],
+  steps:["Mehl, Grieß, Salz, Zucker, Hefe und Wasser 10 Minuten zu einem weichen, glatten Teig kneten.","In 10 Kugeln teilen, mit Öl bestreichen und 15 Minuten ruhen lassen.","Butter und Öl verrühren. Eine Kugel auf der geölten Arbeitsfläche mit den Fingern hauchdünn auseinanderziehen.","Mit der Buttermischung bestreichen, mit Grieß bestreuen und die Seiten zur Mitte falten, bis ein Quadrat entsteht. Noch einmal falten.","Das Quadrat flach drücken und in einer heißen Pfanne von jeder Seite 2 bis 3 Minuten goldbraun braten.","Warm mit Honig und Butter servieren, dazu frischen Minztee."],
+  tip:"Der Teig muss so dünn sein, dass du die Arbeitsplatte durchscheinen siehst."},
+ {id:"harira", name:"Harira", ar:"حريرة", aka:"Die Suppe zum Fastenbrechen", tags:"Harira Suppe Linsen Kichererbsen Tomate Ramadan Lamm Koriander",
+  desc:"Tomaten, Linsen, Kichererbsen und frische Kräuter, gebunden mit Mehl. Im Ramadan steht sie jeden Abend als Erstes auf dem Tisch.",
+  time:"1 h 30 min", base:6, unit:"Portionen", level:1,
+  ing:[[250,"g","Lamm, klein gewürfelt"],[1,"","Zwiebel"],[2,"","Stangen Staudensellerie"],[1,"Bund","Koriander"],[1,"Bund","Petersilie"],[600,"g","passierte Tomaten"],[2,"EL","Tomatenmark"],[100,"g","braune Linsen"],[200,"g","Kichererbsen, gegart"],[50,"g","Fadennudeln"],[3,"EL","Mehl"],[1,"TL","Ingwer"],[1,"TL","Kurkuma"],[.5,"TL","Zimt"],[1,"TL","Pfeffer"],[2,"TL","Salz"],[2,"EL","Olivenöl"],[1,"","Zitrone"]],
+  steps:["Fleisch, gehackte Zwiebel, Sellerie, die Hälfte der Kräuter, Gewürze und Öl 10 Minuten anschwitzen.","Tomaten, Tomatenmark, Linsen, Kichererbsen und 2 Liter Wasser dazugeben und 45 Minuten köcheln.","Restliche Kräuter fein hacken und mit den Fadennudeln 5 Minuten mitkochen.","Mehl mit 250 ml Wasser glatt rühren. Unter ständigem Rühren in die Suppe laufen lassen und 10 Minuten sämig kochen.","Abschmecken und mit Zitrone, Datteln und Chebakia servieren."],
+  tip:"Die Mehlmischung ganz langsam einrühren. Wer schüttet, bekommt Klümpchen."},
+ {id:"lamm-tajine", name:"Lammtajine mit Pflaumen", ar:"طاجين باللحم والبرقوق", aka:"Mit Mandeln, Honig und Sesam", tags:"Tajine Lamm Lammschulter Pflaumen Mandeln Honig Sesam Zimt",
+  desc:"Lammschulter, so lange geschmort, bis sie zerfällt. Dazu sirupweiche Pflaumen, geröstete Mandeln und Sesam. Süß und herzhaft in einem.",
+  time:"2 h 30 min", base:4, unit:"Portionen", level:2,
+  ing:[[1,"kg","Lammschulter in großen Stücken"],[2,"","Zwiebeln"],[1,"Prise","Safran"],[1,"TL","Ingwer"],[1,"TL","Zimt"],[2,"","Zimtstangen"],[1,"TL","Salz"],[.5,"TL","Pfeffer"],[3,"EL","Olivenöl"],[30,"g","Butter"],[250,"g","Trockenpflaumen"],[3,"EL","Honig"],[100,"g","ganze Mandeln, blanchiert"],[1,"EL","Sesam"]],
+  steps:["Fleisch mit gehackten Zwiebeln, Gewürzen, Öl und Butter in der Tajine oder einem schweren Topf anbraten.","400 ml Wasser angießen, Deckel auflegen und bei kleiner Hitze 2 Stunden schmoren, bis das Fleisch butterweich ist.","Pflaumen 10 Minuten in Wasser einweichen, dann mit Honig, Zimtstangen und etwas Schmorsauce sirupartig einkochen.","Mandeln in Butter goldbraun rösten, Sesam in der trockenen Pfanne anrösten.","Fleisch anrichten, Pflaumen, Mandeln und Sesam darüber geben. Mit Khobz servieren."],
+  tip:"Langsam schmoren. Die Tajine darf nur ganz leise blubbern."},
+ {id:"pastilla", name:"Pastilla", ar:"بسطيلة", aka:"Hähnchenpastete mit Mandeln und Zimt", tags:"Pastilla Bastilla Hähnchen Mandeln Zimt Puderzucker Warqa Filo Eier Fest",
+  desc:"Das Prunkstück jeder Hochzeit. Knusprige Warqa Blätter, gefüllt mit Hähnchen, Ei und Mandeln, bestäubt mit Puderzucker und Zimt.",
+  time:"2 h 30 min", base:8, unit:"Portionen", level:3,
+  ing:[[1.2,"kg","Hähnchenschenkel"],[3,"","Zwiebeln"],[1,"Bund","Petersilie"],[1,"Bund","Koriander"],[1,"Prise","Safran"],[1,"TL","Ingwer"],[2,"TL","Zimt"],[1,"TL","Salz"],[6,"","Eier"],[200,"g","Mandeln"],[80,"g","Puderzucker"],[150,"g","Butter, geschmolzen"],[12,"","Blätter Warqa oder Filoteig"],[null,"","Puderzucker und Zimt zum Bestäuben"]],
+  steps:["Hähnchen mit gehackten Zwiebeln, Kräutern, Gewürzen, 50 g Butter und 300 ml Wasser 1 Stunde schmoren.","Fleisch herausnehmen und zupfen. Die Sauce einkochen und die verquirlten Eier unterrühren, bis sie cremig stocken.","Mandeln rösten und grob mahlen, mit 50 g Puderzucker und 1 TL Zimt mischen.","Eine runde Form buttern, 6 Blätter überlappend hineinlegen, Ränder überstehen lassen. Eiercreme, Hähnchen und Mandeln einschichten.","Ränder einschlagen, mit den restlichen Blättern abdecken und mit Butter bestreichen.","Bei 180 °C 30 Minuten goldbraun backen. Mit Puderzucker bestäuben und ein Zimtgitter darüber ziehen."],
+  tip:"Das Zimtgitter gelingt mit dem Rücken eines Messers. Süß und herzhaft gehören zusammen."},
+ {id:"kefta", name:"Kefta Tajine mit Ei", ar:"طاجين الكفتة", aka:"Hackbällchen in Tomatensauce", tags:"Kefta Hack Rind Hackbällchen Tomate Ei Kreuzkümmel Tajine",
+  desc:"Würzige Hackbällchen in Tomatensauce, obendrauf Eier mit flüssigem Dotter. Gegessen wird direkt aus der Tajine, mit Brot statt Besteck.",
+  time:"50 min", base:4, unit:"Portionen", level:1,
+  ing:[[500,"g","Rinderhack"],[1,"","Zwiebel"],[3,"","Knoblauchzehen"],[1,"Bund","Petersilie"],[.5,"Bund","Koriander"],[2,"TL","Kreuzkümmel"],[2,"TL","Paprika edelsüß"],[.5,"TL","Chili"],[1,"TL","Salz"],[800,"g","Tomaten"],[2,"EL","Tomatenmark"],[3,"EL","Olivenöl"],[4,"","Eier"]],
+  steps:["Hack mit der halben geriebenen Zwiebel, der Hälfte der Kräuter und der Hälfte der Gewürze kräftig kneten. Kleine Bällchen formen.","Tomaten reiben und mit restlicher Zwiebel, Knoblauch, Tomatenmark, Gewürzen und Öl 15 Minuten einkochen.","Bällchen in die Sauce setzen, Deckel drauf und 15 Minuten garen.","Mulden in die Sauce drücken, Eier hineinschlagen und zugedeckt 5 bis 7 Minuten stocken lassen.","Mit Kräutern bestreuen und sofort mit Brot servieren."],
+  tip:"Hier isst man mit Khobz und mit der rechten Hand. Besteck bleibt in der Schublade."},
+ {id:"zaalouk", name:"Zaalouk", ar:"زعلوك", aka:"Auberginensalat, warm oder kalt", tags:"Zaalouk Aubergine Tomate Knoblauch Salat Dip Vegetarisch",
+  desc:"Rauchig geröstete Aubergine mit Tomate und Knoblauch zu einer cremigen Paste verkocht. Als Vorspeise, Beilage oder einfach mit Brot.",
+  time:"40 min", base:4, unit:"Portionen", level:1,
+  ing:[[2,"","Auberginen"],[4,"","Tomaten"],[3,"","Knoblauchzehen"],[.5,"Bund","Petersilie"],[.5,"Bund","Koriander"],[1,"TL","Kreuzkümmel"],[1,"TL","Paprika edelsüß"],[.5,"TL","Salz"],[5,"EL","Olivenöl"],[1,"EL","Zitronensaft"]],
+  steps:["Auberginen über offener Flamme oder bei 220 °C im Ofen etwa 25 Minuten rösten, bis die Haut schwarz und das Innere weich ist.","Schälen und grob hacken.","Tomaten schälen, würfeln und mit Knoblauch, Öl und Gewürzen 10 Minuten köcheln.","Aubergine dazugeben, mit der Gabel zerdrücken und 15 Minuten dick einkochen.","Kräuter und Zitronensaft unterrühren, mit einem Schuss Olivenöl servieren."],
+  tip:"Über der Gasflamme geröstet schmeckt Zaalouk am rauchigsten."},
+ {id:"rfissa", name:"Rfissa", ar:"رفيسة", aka:"Hähnchen mit Linsen auf Msemen", tags:"Rfissa Hähnchen Linsen Bockshornklee Msemen Safran Ras el Hanout",
+  desc:"Zerrissene Msemen, getränkt in Safranbrühe mit Bockshornklee, darauf Hähnchen und Linsen. Ein Gericht, das man zu besonderen Anlässen kocht.",
+  time:"2 h", base:6, unit:"Portionen", level:3,
+  ing:[[1,"","Hähnchen in Stücken"],[3,"","Zwiebeln"],[150,"g","braune Linsen"],[2,"EL","Bockshornkleesamen, über Nacht eingeweicht"],[1,"Prise","Safran"],[1,"TL","Ras el Hanout"],[1,"TL","Ingwer"],[1,"TL","Kurkuma"],[1,"TL","Salz"],[4,"EL","Öl"],[30,"g","Smen oder Butter"],[.5,"Bund","Koriander"],[8,"","Msemen vom Vortag"]],
+  steps:["Hähnchen mit Zwiebelringen, Gewürzen, Öl und Smen 10 Minuten anbraten.","Bockshornklee und 1,5 Liter Wasser dazugeben und 45 Minuten köcheln.","Linsen hinzufügen und weitere 30 Minuten garen.","Msemen in Streifen reißen und kurz über Dampf erwärmen.","Streifen auf einer Platte verteilen, mit Brühe tränken, Hähnchen und Linsen darauf setzen. Restliche Brühe extra servieren."],
+  tip:"Rfissa kocht man für junge Mütter nach der Geburt. Der Bockshornklee soll Kraft geben."},
+ {id:"chebakia", name:"Chebakia", ar:"شباكية", aka:"Honig Sesam Blüten für den Ramadan", tags:"Chebakia Gebäck Süß Honig Sesam Ramadan Orangenblüte Anis Dessert",
+  desc:"Blütenförmiges Gebäck, frittiert, in Honig getaucht und mit Sesam bestreut. Wird Wochen vor dem Ramadan gemeinsam in großen Mengen gemacht.",
+  time:"3 h", base:40, unit:"Stück", level:3,
+  ing:[[500,"g","Mehl"],[100,"g","Sesam, geröstet und gemahlen"],[1,"","Ei"],[60,"g","Butter, geschmolzen"],[3,"EL","Olivenöl"],[2,"EL","Orangenblütenwasser"],[1,"TL","Anis, gemahlen"],[1,"TL","Zimt"],[1,"Prise","Safran in 2 EL Wasser"],[.5,"TL","Trockenhefe"],[1,"Prise","Salz"],[1,"kg","Honig"],[150,"g","Sesam zum Bestreuen"],[null,"","Öl zum Frittieren"]],
+  steps:["Alle Teigzutaten 10 Minuten zu einem festen Teig kneten und 30 Minuten ruhen lassen.","Dünn ausrollen und Rechtecke von etwa 8 mal 10 cm schneiden. In jedes Rechteck vier parallele Schnitte setzen.","Die Streifen abwechselnd auf einen Finger fädeln und zur Blüte formen.","In 170 °C heißem Öl goldbraun frittieren.","Sofort für 3 Minuten in warmen Honig mit einem Schuss Orangenblütenwasser tauchen.","Abtropfen lassen und dicht mit Sesam bestreuen."],
+  tip:"Chebakia macht man nie allein. Die ganze Familie sitzt am Tisch und faltet mit."}
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)) }catch(e){ return null } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)) }catch(e){} }
+};
+const AR = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+const FR = {0.25:"¼",0.5:"½",0.75:"¾"};
+function fmt(q){
+  if(q==null) return "";
+  if(q>=10) return String(Math.round(q));
+  const whole=Math.floor(q), rest=Math.round((q-whole)*4)/4;
+  if(FR[rest]) return (whole?whole+" ":"")+FR[rest];
+  if(rest===1) return String(whole+1);
+  return String(Math.round(q*10)/10).replace(".",",");
+}
+function qty(q,u,f){
+  if(q==null) return "";
+  let v=q*f, unit=u;
+  if(u==="g" && v>=1000){v=v/1000;unit="kg"}
+  if(u==="kg" && v<1){v=v*1000;unit="g"}
+  if(u==="ml" && v>=1000){v=v/1000;unit="l"}
+  return fmt(v)+(unit?" "+unit:"");
+}
+const levelName = ["","Leicht","Mittel","Aufwendig"];
+
+$("#tocGrid").innerHTML = R.map((r,i)=>`
+  <a class="toc-card" href="#${r.id}">
+    <div class="ph lobed"><img src="img/d${i+1}.jpg" alt="${esc(r.name)}" loading="lazy"></div>
+    <span class="n">Seite ${i+1}</span><span class="t">${esc(r.name)}</span><span class="a" lang="ar">${r.ar}</span>
+  </a>`).join("");
+
+$("#pages").innerHTML = R.map((r,i)=>`
+<div class="zband" aria-hidden="true"></div>
+<section class="recipe gut" id="${r.id}" aria-labelledby="h-${r.id}">
+ <div class="wrap">
+  <div class="page-top">
+    <div class="photo">
+      <div class="ring horseshoe" aria-hidden="true"></div>
+      <div class="arch horseshoe"><img src="img/d${i+1}.jpg" alt="${esc(r.name)}, fertig angerichtet" loading="lazy"></div>
+      <div class="stamp" aria-hidden="true"><div><small>Seite</small><b>N° ${i+1}</b><span>${AR(i+1)}</span></div></div>
+    </div>
+    <div class="head">
+      <div class="ar" lang="ar">${r.ar}</div>
+      <h2 id="h-${r.id}">${esc(r.name)}</h2>
+      <div class="aka">${esc(r.aka)}</div>
+      <p class="desc">${esc(r.desc)}</p>
+      <div class="facts">
+        <div class="fact"><small>Zeit</small><b>${r.time}</b></div>
+        <div class="fact"><small>Ergibt</small><b>${r.base} ${r.unit}</b></div>
+        <div class="fact"><small>Aufwand</small><b>${levelName[r.level]}</b><span class="level" aria-hidden="true">${[1,2,3].map(n=>`<i class="${n<=r.level?"on":""}"></i>`).join("")}</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="panel">
+      <h3>Zutaten <small lang="ar">المقادير</small></h3>
+      <div class="zutaten-art lobed"><img src="img/z${i+1}.jpg" alt="Illustration der Zutaten für ${esc(r.name)}" loading="lazy"></div>
+      <div class="portions">
+        <span>${r.unit}</span>
+        <div class="ctl">
+          <button type="button" data-r="${i}" data-d="-1" aria-label="Weniger ${r.unit}">−</button>
+          <output id="p-${i}">${r.base}</output>
+          <button type="button" data-r="${i}" data-d="1" aria-label="Mehr ${r.unit}">+</button>
+        </div>
+      </div>
+      <ul class="ing" id="ing-${i}"></ul>
+    </div>
+    <div class="panel">
+      <h3>Zubereitung <small lang="ar">طريقة التحضير</small></h3>
+      <ol class="steps">${r.steps.map((s,k)=>`<li><div class="num" aria-hidden="true"><b>${k+1}</b><span>${AR(k+1)}</span></div><p>${esc(s)}</p></li>`).join("")}</ol>
+      <div class="tip"><img src="img/profil.webp" alt=""><div><b>Mamas Tipp</b><p>${esc(r.tip)}</p></div></div>
+    </div>
+  </div>
+ </div>
+</section>`).join("");
+
+const portions = R.map(r=>r.base);
+function renderIng(i){
+  const r=R[i], f=portions[i]/r.base, saved=store.get("ym-check-"+r.id)||[];
+  $("#p-"+i).textContent = portions[i];
+  $("#ing-"+i).innerHTML = r.ing.map((x,j)=>{
+    const on = saved.includes(j);
+    return `<li class="${on?"done":""}"><label for="c-${i}-${j}">
+      <input type="checkbox" id="c-${i}-${j}" data-r="${i}" data-j="${j}" ${on?"checked":""}>
+      <span class="q">${esc(qty(x[0],x[1],f))}</span><span class="n">${esc(x[2])}</span></label></li>`;
+  }).join("");
+}
+R.forEach((_,i)=>renderIng(i));
+document.addEventListener("click", e=>{
+  const b=e.target.closest(".portions button"); if(!b) return;
+  const i=+b.dataset.r, r=R[i], step = r.base>=10 ? (r.base>=20?10:2) : 1;
+  portions[i]=Math.max(step, portions[i]+(+b.dataset.d)*step);
+  renderIng(i);
+});
+document.addEventListener("change", e=>{
+  const c=e.target; if(!c.matches(".ing input")) return;
+  const r=R[+c.dataset.r], key="ym-check-"+r.id, saved=new Set(store.get(key)||[]);
+  c.checked ? saved.add(+c.dataset.j) : saved.delete(+c.dataset.j);
+  c.closest("li").classList.toggle("done", c.checked);
+  store.set(key,[...saved]);
+});
+
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"ss");
+const index = R.map((r,i)=>({i, r, name:norm(r.name+" "+r.aka), tags:norm(r.tags), ing:r.ing.map(x=>x[2]), all:norm([r.name,r.aka,r.tags,r.desc,r.ing.map(x=>x[2]).join(" "),r.steps.join(" "),r.tip].join(" "))}));
+const q=$("#q"), res=$("#results"), clr=$("#clear");
+let active=-1, hits=[];
+function hl(text, terms){
+  let out=esc(text);
+  terms.forEach(t=>{ if(t.length<2) return;
+    const re=new RegExp("("+t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+    out=out.replace(re,"<mark>$1</mark>"); });
+  return out;
+}
+function search(){
+  const raw=q.value.trim(); clr.hidden=!raw;
+  document.querySelectorAll(".recipe").forEach(s=>s.classList.remove("dim"));
+  if(!raw){res.hidden=true;hits=[];return}
+  const terms=norm(raw).split(/\s+/).filter(Boolean);
+  hits=index.map(x=>{
+    if(!terms.every(t=>x.all.includes(t))) return null;
+    let score=0; terms.forEach(t=>{ if(x.name.includes(t)) score+=10; if(x.tags.includes(t)) score+=4; score+=1; });
+    const ingHit=x.ing.filter(n=>terms.some(t=>norm(n).includes(t)));
+    return {x,score,ingHit};
+  }).filter(Boolean).sort((a,b)=>b.score-a.score);
+  active=hits.length?0:-1;
+  const rawTerms=raw.split(/\s+/);
+  res.innerHTML = hits.length ? hits.map((h,k)=>`
+    <a class="res ${k===active?"active":""}" href="#${h.x.r.id}" data-k="${k}">
+      <img src="img/d${h.x.i+1}.jpg" alt="">
+      <span style="min-width:0"><b>${hl(h.x.r.name,rawTerms)}</b><small>${h.ingHit.length?"Zutat: "+hl(h.ingHit.slice(0,3).join(", "),rawTerms):hl(h.x.r.aka,rawTerms)}</small></span>
+      <span class="pg">Seite ${h.x.i+1}</span>
+    </a>`).join("")
+    : `<div class="empty">Kein Rezept mit „${esc(raw)}“. Versuch es mit einer Zutat wie Safran, Lamm oder Honig.</div>`;
+  res.hidden=false;
+  const ids=new Set(hits.map(h=>h.x.r.id));
+  document.querySelectorAll(".recipe").forEach(s=>s.classList.toggle("dim", !ids.has(s.id)));
+}
+function go(k){ const h=hits[k]; if(!h) return; res.hidden=true; document.getElementById(h.x.r.id).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); q.blur(); }
+q.addEventListener("input", search);
+q.addEventListener("focus", ()=>{ if(q.value.trim()) res.hidden=false; });
+q.addEventListener("keydown", e=>{
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){ if(!hits.length) return; e.preventDefault();
+    active=(active+(e.key==="ArrowDown"?1:-1)+hits.length)%hits.length;
+    res.querySelectorAll(".res").forEach((a,k)=>a.classList.toggle("active",k===active)); }
+  if(e.key==="Enter"){ e.preventDefault(); go(Math.max(active,0)); }
+  if(e.key==="Escape"){ q.value=""; search(); q.blur(); }
+});
+res.addEventListener("click", e=>{ const a=e.target.closest(".res"); if(!a) return; e.preventDefault(); go(+a.dataset.k); });
+clr.addEventListener("click", ()=>{ q.value=""; search(); q.focus(); });
+document.addEventListener("keydown", e=>{ if(e.key==="/" && document.activeElement!==q && !e.target.matches("input,textarea")){ e.preventDefault(); q.focus(); } });
+document.addEventListener("click", e=>{ if(!e.target.closest("#searchbar")) res.hidden=true; });
+$("#focusSearch").addEventListener("click", ()=>{ $("#searchbar").scrollIntoView({behavior:"smooth"}); setTimeout(()=>q.focus({preventScroll:true}),350); });
+$("#toTop").addEventListener("click", ()=>window.scrollTo({top:0,behavior:"smooth"}));
+const hv=$("#heroVideo");
+if(hv){ if(matchMedia("(prefers-reduced-motion: reduce)").matches){ hv.removeAttribute("autoplay"); hv.pause(); }
+  hv.addEventListener("error", ()=>{ const img=document.createElement("img"); img.src="img/cover.jpg"; img.alt="Mama mit Tajine"; hv.replaceWith(img); }); }
+</script>
+
+</html>
